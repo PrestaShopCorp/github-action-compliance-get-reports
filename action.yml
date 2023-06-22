@@ -10,6 +10,38 @@ inputs:
     description: 'Module technicalName'
     required: true
     type: string
+  token-uri:
+    description: ''
+    required: true
+    type: string
+  cookie: 
+    description: ''
+    required: true
+    type: string
+  client-id: 
+    description: ''
+    required: true
+    type: string
+  client-secret:
+    description: ''
+    required: true
+    type: string 
+  grant-type: 
+    description: ''
+    required: true
+    type: string
+  audience: 
+    description: ''
+    required: true
+    type: string
+  scope: 
+    description: ''
+    required: true
+    type: string
+  compliance-base-uri:
+    description: ''
+    required: true
+    type: string
 
 jobs:
   get-status:
@@ -21,17 +53,17 @@ jobs:
           uses: ./actions/auth-compliance
           id: get_oauth_token
           with:
-            token-uri: ${{ secrets.OAUTH_TOKEN_URI }}
-            cookie: ${{ secrets.OAUTH_COOKIE }}
-            client-id: ${{ secrets.OAUTH_CLIENT_ID }}
-            client-secret: ${{ secrets.OAUTH_CLIENT_SECRET }}
-            grant-type: ${{ secrets.OAUTH_GRANT_TYPE }}
-            audience: ${{ secrets.OAUTH_AUDIENCE }}
-            scope: ${{ secrets.OAUTH_SCOPE }}
+            token-uri: ${{ inputs.token-uri }}
+            cookie: ${{ inputs.cookie }}
+            client-id: ${{ inputs.client-id }}
+            client-secret: ${{ inputs.client-secret }}
+            grant-type: ${{ inputs.grant-type }}
+            audience: ${{ inputs.audience }}
+            scope: ${{ inputs.scope }}
         - name: get-status
           id: get_status
           run: |
-            curl --location --request GET "${{ secrets.COMPLIANCE_BASE_URI }}/orchestrator/v1/status?technicalName=${{ inputs.technicalName }}&version=${{ inputs.version }}" \
+            curl --location --request GET "${{ inputs.compliance-base-uri }}/orchestrator/v1/status?technicalName=${{ inputs.technicalName }}&version=${{ inputs.version }}" \
               --header "Connection: keep-alive" \
               --header 'Accept: application/json' \
               --header "Accept: */*" \
@@ -59,20 +91,20 @@ jobs:
         uses: ./../../actions/auth-compliance
         id: get_oauth_token
         with:
-          token-uri: ${{ secrets.OAUTH_TOKEN_URI }}
-          cookie: ${{ secrets.OAUTH_COOKIE }}
-          client-id: ${{ secrets.OAUTH_CLIENT_ID }}
-          client-secret: ${{ secrets.OAUTH_CLIENT_SECRET }}
-          grant-type: ${{ secrets.OAUTH_GRANT_TYPE }}
-          audience: ${{ secrets.OAUTH_AUDIENCE }}
-          scope: ${{ secrets.OAUTH_SCOPE }}
+          token-uri: ${{ inputs.token-uri }}
+          cookie: ${{ inputs.cookie }}
+          client-id: ${{ inputs.client-id }}
+          client-secret: ${{ inputs.client-secret }}
+          grant-type: ${{ inputs.grant-type }}
+          audience: ${{ inputs.audience }}
+          scope: ${{ inputs.scope }}
       - name: init service name
         id: init_service_name
         run: |
           echo SERVICE_NAME=$(echo ${{ matrix.services }} | sed -e "s/-api$//") >> $GITHUB_OUTPUT && exit 0
       - name: get-report for ${{ matrix.services }}
         run: |
-          curl --location --request GET "${{ secrets.COMPLIANCE_BASE_URI }}/${{ steps.init_service_name.outputs.SERVICE_NAME }}/v1/report?technicalName=${{ inputs.technicalName }}&version=${{ inputs.version }}" \
+          curl --location --request GET "${{ inputs.compliance-base-uri }}/${{ steps.init_service_name.outputs.SERVICE_NAME }}/v1/report?technicalName=${{ inputs.technicalName }}&version=${{ inputs.version }}" \
             --header 'Accept: application/json' \
             --oauth2-bearer ${{ steps.get_oauth_token.outputs.TOKEN }} \
             --output report.json && exit 0
