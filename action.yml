@@ -5,43 +5,33 @@ inputs:
   version:
     description: 'Module version'
     required: true
-    type: string
   technicalName:
     description: 'Module technicalName'
     required: true
-    type: string
   token-uri:
     description: ''
     required: true
-    type: string
   cookie: 
     description: ''
     required: true
-    type: string
   client-id: 
     description: ''
     required: true
-    type: string
   client-secret:
     description: ''
     required: true
-    type: string 
   grant-type: 
     description: ''
     required: true
-    type: string
   audience: 
     description: ''
     required: true
-    type: string
   scope: 
     description: ''
     required: true
-    type: string
   compliance-base-uri:
     description: ''
     required: true
-    type: string
 
 jobs:
   get-status:
