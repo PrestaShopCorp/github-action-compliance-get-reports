@@ -93,7 +93,7 @@ jobs:
         with:
           token-uri: ${{ inputs.token-uri }}
           cookie: ${{ inputs.cookie }}
-          client-id: ${{ inputs.client-id }}
+          client-id: ${{ inputs.client-ids }}
           client-secret: ${{ inputs.client-secret }}
           grant-type: ${{ inputs.grant-type }}
           audience: ${{ inputs.audience }}
