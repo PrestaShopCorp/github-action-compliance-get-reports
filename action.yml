@@ -53,9 +53,11 @@ runs:
         scope: ${{ inputs.scope }}
     - name: init service name
       id: init_service_name
+      shell: bash
       run: |
         echo SERVICE_NAME=$(echo ${{ inputs.service }} | sed -e "s/-api$//") >> $GITHUB_OUTPUT && exit 0
     - name: get-report for ${{ inputs.service }}
+      shell: bash
       run: |
         curl --location --request GET "${{ inputs.compliance_base_uri }}/${{ steps.init_service_name.outputs.SERVICE_NAME }}/v1/report?technicalName=${{ inputs.technical_name }}&version=${{ inputs.version }}" \
           --header 'Accept: application/json' \
