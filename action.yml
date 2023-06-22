@@ -1,5 +1,5 @@
 name: ComplianceGetReports
-description: Get reports of a scan launch into API Compliance, this action is automatically launched after @prestashopcorp/github-action-compliance-send.
+description: Get reports of a scan launch into API Compliance, launched after @prestashopcorp/github-action-compliance-send.
 on:
   workflow_dispatch:
     inputs:
