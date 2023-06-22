@@ -1,16 +1,15 @@
 name: ComplianceGetReports
+author: PrestaShopCorp
 description: Get reports of a scan launch into API Compliance, launched after @prestashopcorp/github-action-compliance-send.
-on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Module version'
-        required: true
-        type: string
-      technicalName:
-        description: 'Module technicalName'
-        required: true
-        type: string
+inputs:
+  version:
+    description: 'Module version'
+    required: true
+    type: string
+  technicalName:
+    description: 'Module technicalName'
+    required: true
+    type: string
 
 jobs:
   get-status:
